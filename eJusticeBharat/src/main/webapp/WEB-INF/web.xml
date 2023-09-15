@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="5.0">
+  <servlet>
+    <description></description>
+    <display-name>UserRequest</display-name>
+    <servlet-name>UserRequest</servlet-name>
+    <servlet-class>UserRequest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserRequest</servlet-name>
+    <url-pattern>/UserRequest</url-pattern>
+  </servlet-mapping>
+  <display-name>eJusticeBharat</display-name>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AdvSignIn</display-name>
+    <servlet-name>AdvSignIn</servlet-name>
+    <servlet-class>com.Yash.ejusticeBharat.AdvSignIn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdvSignIn</servlet-name>
+    <url-pattern>/AdvSignIn</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdvRegister</display-name>
+    <servlet-name>AdvRegister</servlet-name>
+    <servlet-class>com.Yash.ejusticeBharat.AdvRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdvRegister</servlet-name>
+    <url-pattern>/AdvRegister</url-pattern>
+  </servlet-mapping>
+</web-app>
