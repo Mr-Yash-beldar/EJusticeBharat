@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@include file="files/imports.jsp"%>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -17,7 +16,6 @@
     />
 
     <title>Advocate Homepage | eJusticeBharat</title>
-
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -56,6 +54,22 @@
 
   <body>
     <!-- Layout wrapper -->
+    <% 
+    try{					        	
+		Connection con=ConnectDB.connect();
+		PreparedStatement ps=con.prepareStatement("select a_name,a_profile,a_mob from advocate where a_email=?");
+		ps.setString(1, AdvEmail.getAdvEmail());
+		ResultSet rs=ps.executeQuery();
+		if(rs.next()){
+			String advName=rs.getString(1);
+       		byte[] imageData=rs.getBytes(2);
+			String base64Image=Base64.getEncoder().encodeToString(imageData);
+			String advMob=rs.getString("a_mob");
+			System.out.println(advMob);
+            String advMobc=advMob+"no";
+            System.out.println(advMobc);
+    
+	%>
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
@@ -76,15 +90,14 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="homepage_advocate.html" class="menu-link">
+              <a href="homepage_advocate.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Home</div>
               </a>
             </li>
             <li class="menu-item">
-                <a href="complete_profile_advocate.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-circle"></i>
-                
+                <a href="complete_profile_advocate.jsp" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user-circle"></i>                
                   <div data-i18n="Analytics">Complete Profile</div>
                 </a>
             </li>
@@ -126,18 +139,20 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                  <h4 class="mb-0">Welcome Mr. Om Bhagwat</h4>
+                 <h5 class="mb-0 card-title text-primary">Welcome Mr. <%=advName%></h5>
               </div>
             </div>
             <!-- /Search -->
-
+ 			
             <ul class="navbar-nav flex-row align-items-center ms-auto">
               
               <!-- User -->
+             
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                
                   <div class="avatar avatar-online">
-                    <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src="data:image/jpeg;base64,<%=base64Image%>" alt class="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -146,11 +161,11 @@
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img src="data:image/jpeg;base64,<%=base64Image%>" alt class="w-px-40 h-auto rounded-circle" />
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">John Doe</span>
+                          <span class="fw-semibold d-block"><%=advName%></span>
                           <small class="text-muted">Admin</small>
                         </div>
                       </div>
@@ -165,32 +180,21 @@
                       <span class="align-middle">My Profile</span>
                     </a>
                   </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-cog me-2"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <span class="d-flex align-items-center align-middle">
-                        <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                        <span class="flex-grow-1 align-middle">Billing</span>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                      </span>
-                    </a>
-                  </li>
+            
                   <li>
                     <div class="dropdown-divider"></div>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="auth-login-basic.html">
+                    <a class="dropdown-item" href="index.html">
                       <i class="bx bx-power-off me-2"></i>
                       <span class="align-middle">Log Out</span>
                     </a>
                   </li>
+                
                 </ul>
               </li>
+                  
+                
               <!--/ User -->
             </ul>
           </div>
@@ -201,15 +205,18 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
+            <%if(advMobc.equals("no")){%>
+               <div class="alert alert-primary" role="alert">You Need to Complete your Profile before proceding !<br><br><button class="btn btn-primary">Complete Profile</button></div>
+			      
+                <%}else{%>
               <div class="row">
                 <div class="col-lg-8 mb-4 order-0">
                   <div class="card">
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
                         <div class="card-body">
-                          <h5 class="card-title text-primary">Pretrial Meeting is Shedhuled ðŸŽ‰</h5>
+                          <h5 class="card-title text-primary">Pretrial Meeting is Shedhuled ŸŽ‰</h5>
                           <p class="mb-4">
                             Meeting timigs are <span class="fw-bold">23 May 2023, 11.00 am</span><br/> Join 15 min prior to time.
                           </p>
@@ -229,15 +236,14 @@
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
+                </div>
+                
+               <%}%>
                 <div class="col-lg-4 col-md-4 order-1">
-                  
-                   
                     <div class="col-lg-12 col-md-12 col-6 mb-4">
                       <div class="card">
                         <div class="card-body">
-                          
                           <span>Total Cases</span>
                           <div class="d-flex" style="justify-content: space-between;">
                             <h3 class="card-title text-nowrap mb-1">36</h3>
@@ -253,14 +259,10 @@
                         </div>
                       </div>
                     </div>
-                  
                 </div>
-               
               </div>
             </div>
             <!-- / Content -->
-
-           
 
             <div class="content-backdrop fade"></div>
           </div>
@@ -269,12 +271,16 @@
         <!-- / Layout page -->
       </div>
 
+        
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
 
-  
+   <%}}catch(Exception e){
+        						e.printStackTrace();
+        					}%>
+           
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="assets/vendor/libs/jquery/jquery.js"></script>
